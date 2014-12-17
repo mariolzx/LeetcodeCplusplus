@@ -1,0 +1,82 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *reverseKGroup(ListNode *head, int k) {
+        
+        if (head==NULL) return head;
+       
+       ListNode *dummy=new ListNode(0);
+       ListNode *begin=new ListNode(0);
+       ListNode *begin_prev=new ListNode(0);
+       ListNode *end=new ListNode(0);
+       ListNode *end_next=new ListNode(0);
+       ListNode *temp=new ListNode(0);
+       
+       
+       dummy->next=head;
+       begin_prev=dummy;
+       
+       begin=head;
+       end=head;
+ 
+       int indicator=0;
+       int i=0;
+       //int initial=0;
+       
+    while (indicator==0) {
+        i=0;
+       while ((i<k-1)&&(end!=NULL)) {
+           end=end->next;
+           i++;
+       }
+       
+       
+       if ((i==k-2)&&(end!=NULL)) {
+           indicator=0;
+           end_next=end->next;
+         //  if (initial=0) dummy->next=end;
+       }
+       else indicator=1;
+       
+       
+       ListNode *prev=new ListNode(0);
+       ListNode *current=new ListNode(0);
+       ListNode *temp=new ListNode(0);
+       
+       prev=begin;
+       current=begin->next;
+       if (indicator==0) {
+       i=0;
+       while (i<k-1) {
+           
+               temp=current->next;
+               current->next=prev;
+               
+               prev=current;
+               current=temp;
+               i++;
+       }
+       
+       begin=end_next;
+       end=begin;
+       begin_prev->next=end;
+       begin_prev=prev;
+       
+       }
+       else {
+           begin_prev->next=begin;
+       }
+       
+    }
+       
+       return dummy->next;
+        
+    }
+};
