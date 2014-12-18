@@ -1,0 +1,96 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *sortList(ListNode *head) {
+        if(head==NULL || head->next==NULL)
+            return head;
+        ListNode *p=head,*q=head;
+        while(p->next!=NULL && p->next->next!=NULL){
+            p=p->next->next;
+            q=q->next;
+        }
+        p=q;
+        q=q->next;
+        p->next=NULL;
+        p=sortList(head);
+        q=sortList(q);
+        return merge(p,q);
+    }
+    ListNode *merge(ListNode*p,ListNode*q){
+        ListNode *h=new ListNode(0),*c=h;
+        while(p!=NULL && q!=NULL){
+            if(p->val<q->val){
+                c->next=p;
+                p=p->next;
+                c=c->next;
+            }else{
+                c->next=q;
+                q=q->next;
+                c=c->next;
+            }
+        }
+        if(p!=NULL)
+            c->next=p;
+        if(q!=NULL)
+            c->next=q;
+        c=h->next;
+        delete h;
+        return c;
+    }
+   
+};
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *sortList(ListNode *head) {
+        if(head==NULL || head->next==NULL)
+            return head;
+        ListNode *p=head,*q=head;
+        while(p->next!=NULL && p->next->next!=NULL){
+            p=p->next->next;
+            q=q->next;
+        }
+        p=q;
+        q=q->next;
+        p->next=NULL;
+        p=sortList(head);
+        q=sortList(q);
+        return merge(p,q);
+    }
+    ListNode *merge(ListNode*p,ListNode*q){
+        ListNode *h=new ListNode(0),*c=h;
+        while(p!=NULL && q!=NULL){
+            if(p->val<q->val){
+                c->next=p;
+                p=p->next;
+                c=c->next;
+            }else{
+                c->next=q;
+                q=q->next;
+                c=c->next;
+            }
+        }
+        if(p!=NULL)
+            c->next=p;
+        if(q!=NULL)
+            c->next=q;
+        c=h->next;
+        delete h;
+        return c;
+    }
+   
+};
