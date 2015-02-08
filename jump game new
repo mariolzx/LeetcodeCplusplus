@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool canJump(int A[], int n) {
+        if ((n==0)||(n==1)) return true;
+        if (A[0]>=(n-1)) return true;
+        int range=A[0];
+        int step=A[0];
+        if (range==0) return false;
+        for (int i=1; i<n; i++) {
+            if (((i+A[i])>=(n-1))&&(i<=range)) return true;
+            if ((i>range)) return false;
+            if (i+A[i]>range) range=i+A[i];
+    }
+   }
+};
