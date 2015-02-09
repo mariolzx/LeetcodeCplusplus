@@ -1,0 +1,42 @@
+1:    string minWindow(string S, string T) {  
+2:      // Start typing your C/C++ solution below  
+3:      // DO NOT write int main() function  
+4:         if(S.size() == 0) return "";  
+5:            if(S.size() < T.size()) return "";            
+6:            int appearCount[256];  
+7:            int expectCount[256];  
+8:            memset(appearCount, 0, 256*sizeof(appearCount[0]));  
+9:            memset(expectCount, 0, 256*sizeof(appearCount[0]));  
+10:            for(int i =0; i < T.size(); i++)  
+11:            {  
+12:                 expectCount[T[i]]++;                 
+13:            }  
+14:            int minV = INT_MAX, min_start = 0;  
+15:            int wid_start=0;  
+16:            int appeared = 0;   
+17:            for(int wid_end = 0; wid_end< S.size(); wid_end++)  
+18:            {  
+19:                 if(expectCount[S[wid_end]] > 0)// this char is a part of T  
+20:                 {  
+21:                      appearCount[S[wid_end]]++;  
+22:                      if(appearCount[S[wid_end]] <= expectCount[S[wid_end]])  
+23:                           appeared ++;                      
+24:                 }  
+25:                 if(appeared == T.size())  
+26:                 {                 
+27:                      while(appearCount[S[wid_start]] > expectCount[S[wid_start]]   
+28:                      || expectCount[S[wid_start]] == 0)  
+29:                      {  
+30:                           appearCount[S[wid_start]]--;  
+31:                           wid_start ++;  
+32:                    }                      
+33:                      if(minV > (wid_end - wid_start +1))  
+34:                      {  
+35:                           minV = wid_end - wid_start +1;  
+36:                           min_start = wid_start;  
+37:                      }  
+38:                 }                 
+39:            }  
+40:      if(minV == INT_MAX) return "";  
+41:            return S.substr(min_start, minV);      
+42:    }  
