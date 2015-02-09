@@ -1,0 +1,33 @@
+class Solution {
+private:
+    int wordLen;
+
+public:
+    vector<int> findSubstring(string S, vector<string> &L) {
+        unordered_map<string, int>wordTimes;
+        for(int i = 0; i < L.size(); i++)
+            if(wordTimes.count(L[i]) == 0)
+                 wordTimes.insert(make_pair(L[i], 1));
+            else wordTimes[L[i]]++;
+        wordLen = L[0].size();
+        vector<int> res;
+        for(int i = 0; i <= (int)(S.size()-L.size()*wordLen); i++)
+            if(helper(S, i, wordTimes, L.size()))
+                 res.push_back(i);
+        return res;
+    }
+    bool helper(const string &s, int index, 
+        unordered_map<string, int>wordTimes, int wordNum)
+    {
+        for(int i = index; wordNum != 0 && i <= (int)s.size()-wordLen; i+=wordLen)
+        {
+            string word = s.substr(i, wordLen);
+            unordered_map<string, int>::iterator ite = wordTimes.find(word);
+            if(ite != wordTimes.end() && ite->second > 0)
+                {ite->second--; wordNum--;}
+            else return false;
+        }
+        if(wordNum == 0)return true;
+        else return false;
+    }
+};
