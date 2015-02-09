@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int maximalRectangle(vector<vector<char> > &matrix) {
+        if(matrix.size()==0 || matrix[0].size()==0)return 0;
+        vector<vector<int>>m(matrix.size()+1,vector<int>(matrix[0].size()+1,0));
+        for(int i=0;i<matrix.size();i++)
+            for(int j=matrix[0].size()-1;j>=0;j--)
+                m[i][j]=matrix[i][j]=='1'?1+m[i][j+1]:0;
+        int max=0;
+        for(int i=0;i<matrix[0].size();i++){
+            int p=0;
+            vector<int>s;
+            while(p!=m.size()){
+                if(s.empty() || m[p][i]>=m[s.back()][i])
+                    s.push_back(p++);
+                else{
+                    int t=s.back();
+                    s.pop_back();
+                    max=std::max(max,m[t][i]*(s.empty()?p:p-s.back()-1));
+                }
+            }
+        }
+        return max;
+    }
+};
