@@ -1,0 +1,37 @@
+class Solution {
+private:
+    int wordLen;
+     
+public:
+    vector<int> findSubstring(string S, vector<string> &L) {
+        unordered_map<string, int>wordTimes;
+        for(int i = 0; i < L.size(); i++)
+            if(wordTimes.count(L[i]) == 0)
+                wordTimes.insert(make_pair(L[i], 1));
+            else wordTimes[L[i]]++;
+        wordLen = L[0].size();
+         
+        vector<int> res;
+        for(int i = 0; i <= (int)(S.size()-L.size()*wordLen); i++)
+            if(helper(S, i, wordTimes, L.size()))
+                res.push_back(i);
+        return res;
+    }
+ 
+    //判断子串s[index...]的前段是否能由L中的单词组合而成
+    bool helper(string &s, const int index, 
+        unordered_map<string, int>&wordTimes, const int wordNum)
+    {
+        if(wordNum == 0)return true;
+        string firstWord = s.substr(index, wordLen);
+        unordered_map<string, int>::iterator ite = wordTimes.find(firstWord);
+        if(ite != wordTimes.end() && ite->second > 0)
+        {
+            (ite->second)--;
+            bool res = helper(s, index+wordLen, wordTimes, wordNum-1);
+            (ite->second)++;//恢复hash map的状态
+            return res;
+        }
+        else return false;
+    }
+};
