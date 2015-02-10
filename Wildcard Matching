@@ -1,3 +1,5 @@
+http://yucoding.blogspot.com/2013/02/leetcode-question-123-wildcard-matching.html
+
 class Solution {
 public:
     bool isMatch(const char *s, const char *p) {
