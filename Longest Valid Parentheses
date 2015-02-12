@@ -1,3 +1,5 @@
+http://bangbingsyb.blogspot.com/2014/11/leetcode-longest-valid-parentheses.html
+
 class Solution {
 public:
     int longestValidParentheses(string s) {
