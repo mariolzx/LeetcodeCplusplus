@@ -15,3 +15,6 @@ public:
       return result;  
     } 
 };
+
+
+这样的话，规律就出来了，n=k时的Gray Code，相当于n=k-1时的Gray Code的逆序 加上 1<<k。
