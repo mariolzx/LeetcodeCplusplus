@@ -1,3 +1,10 @@
+//递推：在第i层的所有next pointer都连接好的情况下，如何连接第i+1层的next pointer?
+//显然从第i层的最左节点开始依次通过next pointer遍历这一层，同时将他们的children，
+//即第i+1层的节点依次通过next pointer连接起来。连接的时候要分情况处理。
+
+//初始情况：对于顶层，只有一个节点root，所以该层连接已经完成。
+
+
 class Solution {
 public:
     void connect(TreeLinkNode *root) {
@@ -6,19 +13,19 @@ public:
         while(leftMost) {
             root = leftMost;
             while(root && !root->left && !root->right) root = root->next;
-            if(!root) return;
+            if(!root) return; //last row: return condition
             leftMost = root->left ? root->left : root->right;
             TreeLinkNode *cur = leftMost;
             
             while(root) {
-                if(cur==root->left) {  
+                if(cur==root->left) {  //has left node
                     if(root->right) {
                         cur->next = root->right;
                         cur = cur->next;
                     }
                     root = root->next;
                 }
-                else if(cur==root->right) { 
+                else if(cur==root->right) { //does not have left node, but has right node
                     root = root->next;
                 }
                 else {  // cur is the child of the previous node of root
