@@ -1,0 +1,31 @@
+class Solution {
+public:
+    void connect(TreeLinkNode *root) {
+        TreeLinkNode *leftMost = root;
+        
+        while(leftMost) {
+            root = leftMost;
+            while(root && !root->left && !root->right) root = root->next;
+            if(!root) return; //last row: return condition
+            leftMost = root->left; //? root->left : root->right;
+            TreeLinkNode *cur = leftMost;
+            
+            while(root) {
+                if(cur==root->left) {  //has left node
+                    if(root->right) {
+                        cur->next = root->right;
+                        cur = cur->next;
+                    }
+                    root = root->next;
+                }
+                else if(cur==root->right) { //does not have left node, but has right node
+                    root = root->next;
+                }
+                else {
+                    cur->next = root->left; 
+                    cur = cur->next;
+                }
+            }
+        }
+    }
+};
