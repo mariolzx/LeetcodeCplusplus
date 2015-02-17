@@ -1,3 +1,5 @@
+http://fisherlei.blogspot.com/2013/11/leetcode-gas-station-solution.html
+
 class Solution {
      public:
          int canCompleteCircuit(vector<int> &gas, vector<int> &cost) {
