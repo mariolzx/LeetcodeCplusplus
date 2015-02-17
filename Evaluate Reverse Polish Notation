@@ -7,7 +7,10 @@ public:
                  if ((tokens[i][0] == '-' && tokens[i].size()>1) //negative number  
                            || (tokens[i][0] >= '0' && tokens[i][0] <= '9')) //positive number  
                  {   
-                      operand.push(atoi(tokens[i].c_str()));   
+                      operand.push(atoi(tokens[i].c_str()));
+                      // string::c_str
+                      //Returns a pointer to an array that contains a null-terminated sequence of characters
+                      //(i.e., a C-string) representing the current value of the string object.
                       continue;  
                  }  
                  int op1 = operand.top();  
