@@ -1,8 +1,6 @@
 class Solution {
 public:
     vector<vector<int> > combinationSum(vector<int> &candidates, int target) {  
-      // Start typing your C/C++ solution below  
-      // DO NOT write int main() function  
       vector<vector<int> > result;  
       vector<int> solution;  
       int sum=0;  
@@ -10,13 +8,7 @@ public:
       GetCombinations(candidates,sum, 0, target, solution, result);  
       return result;  
     }  
-    void GetCombinations(  
-      vector<int>& candidates,  
-      int& sum,  
-      int level,  
-      int target,  
-      vector<int>& solution,  
-      vector<vector<int> >& result)  
+    void GetCombinations(vector<int>& candidates, int& sum, int level, int target, vector<int>& solution, vector<vector<int> >& result)  
     {  
       if(sum > target) return;  
       if(sum == target)  
