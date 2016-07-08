@@ -1,0 +1,30 @@
+class Solution {
+public:
+	int maxSumSubmatrix(vector<vector<int>>& matrix, int k) {
+		if (matrix.empty()) return 0;
+		int ans = INT_MIN,m = matrix.size(), n = matrix[0].size(),row_first=true;
+		if (m > n) {
+			swap(m, n);
+			row_first = false;
+		}
+		for (int ri = 0; ri < m; ri++) {
+			vector<int> temp(n, 0);
+			for (int i = ri; i >= 0; i--) {
+				set<int> sums;
+				int sum = 0;
+				sums.insert(sum);
+				for (int j = 0; j < n; j++) {
+					temp[j] += row_first ? matrix[i][j]: matrix[j][i];
+					sum += temp[j];
+					auto it = sums.lower_bound(sum - k);
+					if (it != sums.end())
+						ans = max(ans, sum - *it);					
+					sums.insert(sum);
+				}
+			}
+		}
+		return ans;
+	}
+};
+
+// https://www.hrwhisper.me/leetcode-max-sum-rectangle-no-larger-k/
